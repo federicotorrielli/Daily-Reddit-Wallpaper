@@ -1,5 +1,5 @@
 # Daily Reddit Wallpaper
-This script changes your wallpaper to most upvoted image of the day on [/r/wallpapers](https://www.reddit.com/r/wallpapers/) or from any other subreddit.
+This script changes your wallpaper to most upvoted image of the day on [/r/wallpaper](https://www.reddit.com/r/wallpaper/) or from any other subreddit.
 
 
 **Run it on startup for new wallpaper on every session.**
@@ -31,21 +31,25 @@ The rest is the same.
 Using script
 =======
 
-Simply run:
+First, you'll need to configure the credentials.json file with your personal Reddit API. Your api_key will be the Reddit API secret and your client_id the first and smaller code:
+
+![API Key](https://camo.githubusercontent.com/d53f92cd85d1279a239444acee25179e8e6d8bb5/687474703a2f2f692e696d6775722e636f6d2f65326b4f5231612e706e67)
+
+Then, simply run:
 ```
-python /home/silvio/Scripts/change_wallpaper_reddit.py 
+python change_wallpaper_reddit.py 
 ```
 
 If you wanna use other subreddit, include argument with the subreddit name:
 ```
-python /home/silvio/Scripts/change_wallpaper_reddit.py --subreddit art
+python change_wallpaper_reddit.py --subreddit art
 ```
 
 If you don't want to change your wallpaper daily, you can use newest, hourly, weekly, monthly or yearly wallpaper too by adding one of the following arguments: ```new```, ```hour```, ```week```, ```month```, ```year``` to the script.
 
 Example:
 ```
-python /home/silvio/Scripts/change_wallpaper_reddit.py --time week 
+python change_wallpaper_reddit.py --time week 
 ```
 
 NSFW images are disabled by default, to enable them add ```--nsfw```.
