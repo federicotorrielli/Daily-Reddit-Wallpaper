@@ -1,0 +1,8 @@
+title: Daily Reddit Wallpaper
+description: Changes your wallpaper to most upvoted image of the day on /r/wallpapers or from any other subreddit on system startup.
+google_analytics: 
+show_downloads: true
+theme: jekyll-theme-cayman
+
+gems:
+  - jekyll-mentions
