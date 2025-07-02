@@ -1,6 +1,6 @@
 decorator==5.2.1
 praw==7.8.1
-requests==2.32.2
+requests==2.32.4
 six==1.17.0
 update-checker==0.18.0
 nose2==0.15.1
