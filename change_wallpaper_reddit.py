@@ -24,10 +24,11 @@ def load_config():
     default["nsfw"] = False
     default["time"] = "all"
     default["display"] = "0"
-    default["output"] = "Pictures/Wallpapers"
+    default["output"] = "Wallpapers"
     default["sort"] = "hot"
     default["limit"] = 20
     default["random"] = False
+    default["flair"] = ""
 
     # If Linux, use config_path_linux otherwise use config_path_windows
     config_path_linux = Path.home() / ".config" / "change_wallpaper_reddit.rc"
@@ -61,6 +62,7 @@ def load_config():
             add_to_ret(conf.get, "sort")
             add_to_ret(conf.get, "limit")
             add_to_ret(conf.getboolean, "random")
+            add_to_ret(conf.get, "flair")
 
             return ret
 
@@ -88,7 +90,7 @@ def parse_args():
         "--time",
         type=str,
         default=config["time"],
-        help="Example: hour, day, week, month, year",
+        help="Time filter for 'top' sort only. Example: hour, day, week, month, year, all",
     )
     parser.add_argument(
         "-n",
@@ -112,7 +114,10 @@ def parse_args():
         help="Set the outputfolder in the home directory to save the Wallpapers to.",
     )
     parser.add_argument(
-        "--sort", type=str, default=config["sort"], help="Can be one of: hot, top, new."
+        "--sort",
+        type=str,
+        default=config["sort"],
+        help="Can be one of: hot, top, new. Note: --time only works with 'top'",
     )
     parser.add_argument(
         "-l",
@@ -127,6 +132,13 @@ def parse_args():
         action="store_true",
         default=config["random"],
         help="Randomize witin sort",
+    )
+    parser.add_argument(
+        "-f",
+        "--flair",
+        type=str,
+        default=config["flair"],
+        help="Filter by flair text (e.g., 'Desktop', 'Mobile')",
     )
     parser.add_argument("--client-id", type=str, help="Reddit API client ID.")
     parser.add_argument(
@@ -157,6 +169,12 @@ def get_top_image(sub_reddit):
         ret["subreddit"] = submission.subreddit.display_name
         print(ret["subreddit"])
         if not args.nsfw and submission.over_18:
+            continue
+        # Filter by flair if specified
+        if args.flair and (
+            not submission.link_flair_text
+            or args.flair.lower() not in submission.link_flair_text.lower()
+        ):
             continue
         url = submission.url
         print(f"url : {url}")
